@@ -8,7 +8,6 @@
 <body>
 <div class="container">
     <h1>Database Information</h1>
-
     <form action="/api/freq" method="POST">
         <!-- Table for displaying database information -->
         {% for item in data %}
@@ -35,7 +34,7 @@
                                 <option {% if shed.freq == "Раз в день" %} selected {% endif %} value="daily">Раз в день</option>
                                 <option {% if shed.freq == "Раз в неделю" %} selected {% endif %} value="weekly">Раз в неделю</option>
                             </select>
-                        </divz
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -46,6 +45,43 @@
         {% endfor %}
 
         <button type="submit" class="btn btn-primary">Перейти</button>
+    </form>
+
+
+    <form action="/data" method = "post">
+        {% for password in passwords %}
+        <div class="mb-3 row">
+            <label for="" class="col-sm-2 col-form-label">пароль от архива</label>
+            <div class="col-sm-10">
+            <input type="password" class="form-control" name="password" required id="password" value="{{password.password_archive}}">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="" class="col-sm-2 col-form-label">Ключ</label>
+            <div class="col-sm-10">
+            <input type="login" class="form-control" name="key" required id="key1" value="{{password.key}}">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="" class="col-sm-2 col-form-label">host</label>
+            <div class="col-sm-10">
+            <input type="login" class="form-control" name="login1" required id="login1" value="{{password.host}}">
+            </div>
+            <label for="" class="col-sm-2 col-form-label">port</label>
+            <div class="col-sm-10">
+            <input type="login" class="form-control" name="login2" required id="login2" value="{{password.port}}">
+            </div>
+            <label for="" class="col-sm-2 col-form-label">user</label>
+            <div class="col-sm-10">
+            <input type="login" class="form-control" name="login3" required id="login3" value="{{password.user}}">
+            </div>
+            <label for="" class="col-sm-2 col-form-label">password</label>
+            <div class="col-sm-10">
+            <input type="password" class="form-control" name="login4" required id="login4" value="{{password.password2}}">
+            </div>
+        </div>
+        {% endfor %}
+        <input type="submit" value="Войти" class = "btn btn-warning">
     </form>
     <!-- Подключаем библиотеку jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
