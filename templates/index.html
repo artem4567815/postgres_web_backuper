@@ -1,35 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Database Information</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Database Information</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
 </head>
 <body>
-  <div class="container">
+<div class="container">
     <h1>Database Information</h1>
 
     <!-- Table for displaying database information -->
     <table class="table">
-      <thead>
+        <thead>
         <tr>
-          <th>Database Name</th>
-          <th>Collection Name</th>
-          <th>Frequency</th>
+            <th>Database Name</th>
+            <th>Collection Name</th>
+            <th>Frequency</th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         {% for item in data %}
         <tr>
-          {% for shed in item.shed %}
-          <td>{{ item.db }}</td>
-          <td>{{ shed.sh }}</td>
-          <td>{{ shed.freq }}</td>
-          </tr>
-          {% endfor %}
+            {% for shed in item.shed %}
+            <td>{{ item.db }}</td>
+            <td>{{ shed.sh }}</td>
+            <td>
+                <select class="form-control">
+                    <option {% if shed.freq==
+                    "Никогда" %} selected {% endif %}>Никогда</option>
+                    <option {% if shed.freq==
+                    "Раз в день" %} selected {% endif %}>Раз в день</option>
+                    <option {% if shed.freq==
+                    "Раз в неделю" %} selected {% endif %}>Раз в неделю</option>
+                </select>
+            </td>
+        </tr>
         {% endfor %}
-      </tbody>
+        {% endfor %}
+        </tbody>
     </table>
-  </div>
+</div>
 </body>
 </html>

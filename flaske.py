@@ -7,17 +7,17 @@ data = [
     {
         "db": "Database 1",
         "shed": [
-            {"sh": "Collection 1", "freq": "Never"},
-            {"sh": "Collection 2", "freq": "Once a day"},
-            {"sh": "Collection 3", "freq": "Once a week"}
+            {"sh": "Collection 1", "freq": "Никогда"},
+            {"sh": "Collection 2", "freq": "Раз в день"},
+            {"sh": "Collection 3", "freq": "Раз в неделю"}
         ]
     },
     {
         "db": "Database 2",
         "shed": [
-            {"sh": "Collection 4", "freq": "Once a day"},
-            {"sh": "Collection 5", "freq": "Never"},
-            {"sh": "Collection 6", "freq": "Once a week"}
+            {"sh": "Collection 4", "freq": "Раз в день"},
+            {"sh": "Collection 5", "freq": "Никогда"},
+            {"sh": "Collection 6", "freq": "Раз в неделю"}
         ]
     }
 ]
