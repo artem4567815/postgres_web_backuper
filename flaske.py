@@ -5,19 +5,19 @@ app = Flask(__name__)
 # Sample data array
 data = [
     {
-        "db": "Database 1",
+        "db": "api-med-bot",
         "shed": [
-            {"sh": "Collection 1", "freq": "Никогда"},
-            {"sh": "Collection 2", "freq": "Раз в день"},
-            {"sh": "Collection 3", "freq": "Раз в неделю"}
+            {"sh": "erfdfv", "freq": "Никогда"},
+            {"sh": "sdrse", "freq": "Раз в день"},
+            {"sh": "pub", "freq": "Раз в неделю"}
         ]
     },
     {
-        "db": "Database 2",
+        "db": "swed",
         "shed": [
-            {"sh": "Collection 4", "freq": "Раз в день"},
-            {"sh": "Collection 5", "freq": "Никогда"},
-            {"sh": "Collection 6", "freq": "Раз в неделю"}
+            {"sh": "pub", "freq": "Раз в день"},
+            {"sh": "sdf", "freq": "Никогда"},
+            {"sh": "sdfsdf", "freq": "Раз в неделю"}
         ]
     }
 ]

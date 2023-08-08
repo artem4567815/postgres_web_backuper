@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Database Information</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
     <h1>Database Information</h1>
 
+    <form action="/api" method="GET">
     <!-- Table for displaying database information -->
     <table class="table">
         <thead>
@@ -25,20 +26,38 @@
             <td>{{ item.db }}</td>
             <td>{{ shed.sh }}</td>
             <td>
-                <select class="form-control">
-                    <option {% if shed.freq==
-                    "Никогда" %} selected {% endif %}>Никогда</option>
-                    <option {% if shed.freq==
-                    "Раз в день" %} selected {% endif %}  >Раз в день</option>
-                    <option {% if shed.freq==
-                    "Раз в неделю" %} selected {% endif %}>Раз в неделю</option>
-                </select>
+
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label for="frequencySelect">Частота:</label>
+                            <select class="form-control" id="frequencySelect" name="frequency_{{ item.db }}_{{ item.sh }}">
+                                <option value="never">Никогда</option>
+                                <option value="daily">Раз в день</option>
+                                <option value="weekly">Раз в неделю</option>
+                            </select>
+
+                        </div>
+
+
+                    </div>
+
             </td>
         </tr>
         {% endfor %}
         {% endfor %}
         </tbody>
     </table>
+
+    <button type="submit" class="btn btn-primary">Перейти</button>
+</form>
+    <!-- Подключаем библиотеку jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Подключаем библиотеку Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Подключаем библиотеку Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </div>
 </body>
 </html>
