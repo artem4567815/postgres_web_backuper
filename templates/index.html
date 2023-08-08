@@ -22,9 +22,11 @@
         {% for item in data %}
         <tr>
           <td>{{ item.db }}</td>
-          <td>{{ item.sh }}</td>
-          <td>{{ item.freq }}</td>
-        </tr>
+          {% for shed in item.shed %}
+          <td>{{ shed.sh }}</td>
+          <td>{{ shed.freq }}</td>
+          </tr>
+          {% endfor %}
         {% endfor %}
       </tbody>
     </table>
