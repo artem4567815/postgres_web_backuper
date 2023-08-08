@@ -21,8 +21,8 @@
       <tbody>
         {% for item in data %}
         <tr>
-          <td>{{ item.db }}</td>
           {% for shed in item.shed %}
+          <td>{{ item.db }}</td>
           <td>{{ shed.sh }}</td>
           <td>{{ shed.freq }}</td>
           </tr>
