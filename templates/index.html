@@ -9,47 +9,43 @@
 <div class="container">
     <h1>Database Information</h1>
 
-    <form action="/api" method="GET">
-    <!-- Table for displaying database information -->
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Database Name</th>
-            <th>Collection Name</th>
-            <th>Frequency</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in data %}
-        <tr>
-            {% for shed in item.shed %}
-            <td>{{ item.db }}</td>
-            <td>{{ shed.sh }}</td>
-            <td>
-
+    <form action="/api/freq" method="POST">
+        <!-- Table for displaying database information -->
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Database Name</th>
+                <th>Collection Name</th>
+                <th>Frequency</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in data %}
+            <tr>
+                {% for shed in item.shed %}
+                <td>{{ item.db }}</td>
+                <td>{{ shed.sh }}</td>
+                <td>
                     <div class="row">
                         <div class="form-group col-12">
                             <label for="frequencySelect">Частота:</label>
-                            <select class="form-control" id="frequencySelect" name="frequency_{{ item.db }}_{{ item.sh }}">
-                                <option value="never">Никогда</option>
-                                <option value="daily">Раз в день</option>
-                                <option value="weekly">Раз в неделю</option>
+                            <select class="form-control" id="frequencySelect"
+                                    name="frequency_{{ item.db }}_{{ shed.sh }}">
+                                <option {% if shed.freq == "Никогда" %} selected {% endif %} value="never">Никогда</option>
+                                <option {% if shed.freq == "Раз в день" %} selected {% endif %} value="daily">Раз в день</option>
+                                <option {% if shed.freq == "Раз в неделю" %} selected {% endif %} value="weekly">Раз в неделю</option>
                             </select>
-
-                        </div>
-
-
+                        </divz
                     </div>
+                </td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>
 
-            </td>
-        </tr>
-        {% endfor %}
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <button type="submit" class="btn btn-primary">Перейти</button>
-</form>
+        <button type="submit" class="btn btn-primary">Перейти</button>
+    </form>
     <!-- Подключаем библиотеку jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 

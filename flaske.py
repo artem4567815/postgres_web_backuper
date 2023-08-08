@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
@@ -25,6 +25,19 @@ data = [
 @app.route('/')
 def index():
     return render_template('index.html', data=data)
+
+@app.route('/api/freq', methods=['post'])
+def api_freq():
+    for db in data:
+        for shed in db["shed"]:
+            ret = request.form.get(f"frequency_{db['db']}_{shed['sh']}")
+            if ret == "daily":
+                shed["freq"] = "Раз в день"
+            elif ret == "weekly":
+                shed["freq"] = "Раз в неделю"
+            elif ret == "never":
+                shed["freq"] = "Никогда"
+    return redirect("/")
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
