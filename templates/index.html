@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Database Information</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Database Information</h1>
+
+    <!-- Table for displaying database information -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Database Name</th>
+          <th>Collection Name</th>
+          <th>Frequency</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in data %}
+        <tr>
+          <td>{{ item.db }}</td>
+          <td>{{ item.sh }}</td>
+          <td>{{ item.freq }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
