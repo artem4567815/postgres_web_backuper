@@ -1,11 +1,18 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
+
 db = SQLAlchemy()
 
-class Region(db.Model):
-    __tablename__ = 'regions'
+class Shedules(db.Model):
+    __tablename__ = 'sheduls'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(100))
-    parent_id = db.Column(db.Integer, db.ForeignKey('regions.id'))
-    parent = db.relationship('Region', remote_side=id, primaryjoin=('Region.parent_id==Region.id'), backref='sub-regions')
-    created_at = db.Column(db.DateTime, default=db.func.now())
-    deleted_at = db.Column(db.DateTime)
+    databases = db.Column(db.String(50))
+    schedule = db.Column(db.String(50))
+    freq = db.Column(db.String(50))
+    last_update_time = db.Column(db.DateTime(timezone=True), onupdate=func.now())
+
+class Setings(db.Model):
+    __tablename__ = 'setings'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(50))
+    value = db.Column(db.String(50))

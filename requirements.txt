@@ -1,4 +1,6 @@
 boto3
 flask
 pyminizip
-Flask-SQLAlchemy
+flask_sqlalchemy
+psycopg2-binary
+Flask-Migrate

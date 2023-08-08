@@ -1,29 +1,30 @@
 from flask import Flask, render_template, request, redirect
-
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.sql import func
+from flask_migrate import Migrate
 
 from db import get_first_data
 from config import conn_params
+from model import db
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///backupdata.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+db.init_app(app)
+migrate = Migrate(app, db)
 
 passwords = [
     {
         "password_archive": "123",
-        "key":"123",
-        "host":"123",
-        "port":"123",
-        "user":"123",
-        "password2":"123",
+        "key": "123",
+        "host": "123",
+        "port": "123",
+        "user": "123",
+        "password2": "123",
     }
 ]
-data = get_first_data(conn_params, ["pg_catalog", "pg_toast", "information_schema"])
-print(data)
+
+
+# print(data)
 
 @app.route('/')
 def index():
@@ -32,9 +33,10 @@ def index():
 
 @app.route('/api/freq', methods=['post'])
 def api_freq():
-    for db in data:
-        for shed in db["shed"]:
-            ret = request.form.get(f"frequency_{db['db']}_{shed['sh']}")
+    data = get_first_data(conn_params, ["pg_catalog", "pg_toast", "information_schema"])
+    for database in data:
+        for shed in database["shed"]:
+            ret = request.form.get(f"frequency_{database['db']}_{shed['sh']}")
             if ret == "daily":
                 shed["freq"] = "Раз в день"
             elif ret == "weekly":
@@ -59,6 +61,7 @@ def data2():
     passwords[0]["user"] = user
     passwords[0]["password2"] = password
     return redirect("/")
+
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)

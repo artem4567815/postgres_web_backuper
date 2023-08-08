@@ -2,3 +2,4 @@ config.py
 .idea
 venv
 backupdata.sqlite3
+migrations
