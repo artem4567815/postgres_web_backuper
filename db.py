@@ -1,6 +1,6 @@
 import psycopg2
 
-def get_first_data(conn_params):
+def get_first_data(conn_params, black_list):
     result = []
     try:
         # Создаем подключение к базе данных
@@ -26,7 +26,7 @@ def get_first_data(conn_params):
         try:
             # Создаем подключение к базе данных
             conn = psycopg2.connect(**conn_params)
-            res_dict["name"] = i[0]
+            res_dict["db"] = i[0]
 
             # Создаем курсор для выполнения SQL-запросов
             cursor = conn.cursor()
@@ -37,8 +37,12 @@ def get_first_data(conn_params):
 
             fdf = []
             for schema in schemas:
-                fdf.append(schema[0])
-            res_dict["schemas"] = fdf
+                if not schema[0] in black_list:
+                    dfsdf = {}
+                    dfsdf["sh"] = schema[0]
+                    dfsdf["freq"] = "never"
+                    fdf.append(dfsdf)
+            res_dict["shed"] = fdf
 
             # Закрываем курсор и соединение с базой данных
             cursor.close()

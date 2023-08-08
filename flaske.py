@@ -1,26 +1,20 @@
 from flask import Flask, render_template, request, redirect
 
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
+
+from db import get_first_data
+from config import conn_params
+
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///backupdata.sqlite3'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
 
 # Sample data array
-data = [
-    {
-        "db": "api-med-bot",
-        "shed": [
-            {"sh": "erfdfv", "freq": "Никогда"},
-            {"sh": "sdrse", "freq": "Раз в день"},
-            {"sh": "pub", "freq": "Раз в неделю"}
-        ]
-    },
-    {
-        "db": "swed",
-        "shed": [
-            {"sh": "pub", "freq": "Раз в день"},
-            {"sh": "sdf", "freq": "Никогда"},
-            {"sh": "sdfsdf", "freq": "Раз в неделю"}
-        ]
-    }
-]
+data = get_first_data(conn_params, ["pg_catalog", "pg_toast", "information_schema"])
+print(data)
 
 @app.route('/')
 def index():

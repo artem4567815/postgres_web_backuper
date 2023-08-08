@@ -11,19 +11,19 @@
 
     <form action="/api/freq" method="POST">
         <!-- Table for displaying database information -->
+        {% for item in data %}
+        <h2>{{item.db}}</h2>
         <table class="table">
             <thead>
             <tr>
-                <th>Database Name</th>
                 <th>Collection Name</th>
                 <th>Frequency</th>
             </tr>
             </thead>
             <tbody>
-            {% for item in data %}
+
             <tr>
                 {% for shed in item.shed %}
-                <td>{{ item.db }}</td>
                 <td>{{ shed.sh }}</td>
                 <td>
                     <div class="row">
@@ -40,9 +40,10 @@
                 </td>
             </tr>
             {% endfor %}
-            {% endfor %}
+
             </tbody>
         </table>
+        {% endfor %}
 
         <button type="submit" class="btn btn-primary">Перейти</button>
     </form>
