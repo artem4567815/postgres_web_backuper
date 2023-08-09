@@ -24,7 +24,7 @@ def index():
         print(p.value, p.name)
         pas[f"{p.name}"] = p.value
     print(pas)
-
+    print(get_data())
     return render_template('index.html', data=get_data(), passwords=pas)
 
 
@@ -44,18 +44,6 @@ def api_freq():
 
 @app.route('/data', methods=['post'])
 def data2():
-    password_archive = request.form['password']
-    key = request.form['key']
-    host = request.form['login1']
-    port = request.form['login2']
-    user = request.form['login3']
-    password = request.form['login4']
-    passwords[0]["password_archive"] = password_archive
-    passwords[0]["key"] = key
-    passwords[0]["host"] = host
-    passwords[0]["port"] = port
-    passwords[0]["user"] = user
-    passwords[0]["password2"] = password
     return redirect("/")
 
 def get_data():
@@ -84,10 +72,9 @@ if __name__ == '__main__':
     with app.app_context():
         for i in data:
             for j in i["shed"]:
-                existing_record = db.session.query(Shedules).filter_by(database=i["db"], schedule=j["sh"],
-                                                                       freq="Никогда").first()
+                existing_record = db.session.query(Shedules).filter_by(database=i["db"], schedule=j["sh"]).first()
                 if existing_record is None:
-                    db.session.add(Shedules(database=i["db"], schedule=j["sh"]))
+                    db.session.add(Shedules(database=i["db"], schedule=j["sh"], freq="Никогда"))
         db.session.commit()
 
     app.run(port=8080, debug=True, host="0.0.0.0")

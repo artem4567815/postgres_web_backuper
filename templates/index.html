@@ -62,7 +62,6 @@
 
         <form action="/data" method="post">
             <div class="row gy-2">
-                {% for password in passwords %}
                 <div>
                     <div class="col-sm-10">
                         <h5 class="text-center">Пароль от создаваемого архива</h5>
@@ -71,7 +70,7 @@
                         <label for="" class="col-sm-2 col-form-label">пароль от архива</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" name="password" required id="password"
-                                   value="{{password.password_archive}}">
+                                   value="{{passwords.password_archive}}">
                         </div>
                     </div>
                 </div>
@@ -83,7 +82,7 @@
                         <label for="" class="col-sm-2 col-form-label">Ключ</label>
                         <div class="col-sm-10">
                             <input type="login" class="form-control" name="key" required id="key1"
-                                   value="{{password.key}}">
+                                   value="{{passwords.key}}">
                         </div>
                     </div>
                 </div>
@@ -95,30 +94,27 @@
                         <label for="" class="col-sm-2 col-form-label">host</label>
                         <div class="col-sm-10">
                             <input type="login" class="form-control" name="login1" required id="login1"
-                                   value="{{password.host}}">
+                                   value="{{passwords.host}}">
                         </div>
                         <label for="" class="col-sm-2 col-form-label">port</label>
                         <div class="col-sm-10">
                             <input type="login" class="form-control" name="login2" required id="login2"
-                                   value="{{password.port}}">
+                                   value="{{passwords.port}}">
                         </div>
                         <label for="" class="col-sm-2 col-form-label">user</label>
                         <div class="col-sm-10">
                             <input type="login" class="form-control" name="login3" required id="login3"
-                                   value="{{password.user}}">
+                                   value="{{passwords.login_user}}">
                         </div>
                         <label for="" class="col-sm-2 col-form-label">password</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" name="login4" required id="login4"
-                                   value="{{password.password2}}">
+                                   value="{{passwords.passwotd_user}}">
                         </div>
                     </div>
                 </div>
-
-                {% endfor %}
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-warning">Сохранить</button>
-                    >
                 </div>
             </div>
         </form>
@@ -129,6 +125,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Подключаем библиотеку Popper.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
     <!-- Подключаем библиотеку Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </div>
