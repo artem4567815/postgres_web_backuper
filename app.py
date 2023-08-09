@@ -3,7 +3,7 @@ from flask_migrate import Migrate
 
 from db import get_first_data
 from config import conn_params
-from model import db
+from model import db, Setings, Shedules
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///backupdata.sqlite3'
@@ -28,13 +28,12 @@ passwords = [
 
 @app.route('/')
 def index():
-    return render_template('index.html', data=data, passwords=passwords)
+    return render_template('index.html', data=get_data(), passwords=passwords)
 
 
 @app.route('/api/freq', methods=['post'])
 def api_freq():
-    data = get_first_data(conn_params, ["pg_catalog", "pg_toast", "information_schema"])
-    for database in data:
+    for database in get_data():
         for shed in database["shed"]:
             ret = request.form.get(f"frequency_{database['db']}_{shed['sh']}")
             if ret == "daily":
@@ -62,6 +61,30 @@ def data2():
     passwords[0]["password2"] = password
     return redirect("/")
 
+def get_data():
+    data = []
+    with app.app_context():
+        schedules = db.session.query(Shedules).all()
+
+    for schedule in schedules:
+        db_data = {'db': schedule.database, 'shed': []}
+        db_data['shed'].append({'sh': schedule.schedule, 'freq': schedule.freq})
+        data.append(db_data)
+
+    return data
+
 
 if __name__ == '__main__':
-    app.run(port=8080, debug=True)
+
+    data = get_first_data(conn_params, ["pg_catalog", "pg_toast", "information_schema"])
+
+    with app.app_context():
+        for i in data:
+            for j in i["shed"]:
+                existing_record = db.session.query(Shedules).filter_by(database=i["db"], schedule=j["sh"],
+                                                                       freq="Никогда").first()
+                if existing_record is None:
+                    db.session.add(Shedules(database=i["db"], schedule=j["sh"]))
+        db.session.commit()
+
+    app.run(port=8080, debug=True, host="0.0.0.0")
