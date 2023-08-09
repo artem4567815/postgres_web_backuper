@@ -49,10 +49,10 @@
 
 
     <form action="/data" method = "post">
-        {% for password in passwords %}
         <div class="mb-3 row">
             <label for="" class="col-sm-2 col-form-label">пароль от архива</label>
             <div class="col-sm-10">
+
             <input type="password" class="form-control" name="password" required id="password" value="{{password.password_archive}}">
             </div>
         </div>
@@ -73,14 +73,13 @@
             </div>
             <label for="" class="col-sm-2 col-form-label">user</label>
             <div class="col-sm-10">
-            <input type="login" class="form-control" name="login3" required id="login3" value="{{password.user}}">
+            <input type="login" class="form-control" name="login3" required id="login3" value="{{password.login_user}}">
             </div>
             <label for="" class="col-sm-2 col-form-label">password</label>
             <div class="col-sm-10">
-            <input type="password" class="form-control" name="login4" required id="login4" value="{{password.password2}}">
+            <input type="password" class="form-control" name="login4" required id="login4" value="{{password.passwotd_user}}">
             </div>
         </div>
-        {% endfor %}
         <input type="submit" value="Войти" class = "btn btn-warning">
     </form>
     <!-- Подключаем библиотеку jQuery -->
