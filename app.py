@@ -77,4 +77,15 @@ if __name__ == '__main__':
                     db.session.add(Shedules(database=i["db"], schedule=j["sh"], freq="Никогда"))
         db.session.commit()
 
+    with app.app_context():
+        existing_record = db.session.query(Setings).filter_by(name="host").first()
+        if existing_record is None:
+            db.session.add(Setings(name="password_archive", value="sdf"))
+            db.session.add(Setings(name="key", value="123"))
+            db.session.add(Setings(name="host", value="123"))
+            db.session.add(Setings(name="port", value="123"))
+            db.session.add(Setings(name="login_user", value="123"))
+            db.session.add(Setings(name="password_user", value="123"))
+        db.session.commit()
+
     app.run(port=8080, debug=True, host="0.0.0.0")
