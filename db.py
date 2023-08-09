@@ -1,5 +1,5 @@
 import psycopg2
-
+from config import conn_params
 def get_first_data(conn_params, black_list):
     result = []
     try:
@@ -52,3 +52,4 @@ def get_first_data(conn_params, black_list):
         except (Exception, psycopg2.Error) as error:
             print("Ошибка при работе с базой данных:", error)
     return result
+

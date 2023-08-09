@@ -5,6 +5,9 @@ from db import get_first_data
 from config import conn_params
 from model import db, Setings, Shedules
 
+from model import *
+import schedule
+from backuper import Backuper
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///backupdata.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -12,23 +15,17 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app, db)
 
-passwords = [
-    {
-        "password_archive": "123",
-        "key": "123",
-        "host": "123",
-        "port": "123",
-        "user": "123",
-        "password2": "123",
-    }
-]
-
-
-# print(data)
-
 @app.route('/')
 def index():
-    return render_template('index.html', data=get_data(), passwords=passwords)
+    passwords = Setings.query.all()
+    pas = {}
+    print(passwords)
+    for p in passwords:
+        print(p.value, p.name)
+        pas[f"{p.name}"] = p.value
+    print(pas)
+
+    return render_template('index.html', data=get_data(), passwords=pas)
 
 
 @app.route('/api/freq', methods=['post'])
@@ -72,6 +69,12 @@ def get_data():
         data.append(db_data)
 
     return data
+
+
+def doit():
+    for database in data:
+        for shed in database["shed"]:
+            Backuper().create("test.zip", "postgres", shed['sh'], "12345678")
 
 
 if __name__ == '__main__':
