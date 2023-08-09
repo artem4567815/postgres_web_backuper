@@ -1,5 +1,6 @@
 from os import system, remove
 from pyminizip import compress
+from time import time
 
 class Backuper:
     def do_back_up(self, path, db, schema, filename):
@@ -19,6 +20,7 @@ class Backuper:
         self.db = db
         self.schema = schema
         self.pasw = pasw
-        self.do_back_up("", self.db, self.schema, "backup.sql")
-        self.create_archive("backup.sql", self.pasw, self.out)
-        remove("backup.sql")
+        ti = int(time())
+        self.do_back_up("", self.db, self.schema, f"backup_{ti}.sql")
+        self.create_archive(f"backup_{ti}.sql", self.pasw, self.out)
+        remove(f"backupz-{ti}.sql")
