@@ -9,12 +9,11 @@
 <div class="container">
     <h1>Database Information</h1>
     <div class="row gy-5">
-        <form action="/api/freq" method="POST">
-            <!-- Table for displaying database information -->
+        <form method="POST">
             <div class="row gy-3">
-                {% for item in data %}
+                {% for database in groups %}
                 <div>
-                    <h2>{{item.db}}</h2>
+                    <h2>{{ database }}</h2>
                     <table class="table">
                         <thead>
                         <tr>
@@ -25,23 +24,17 @@
                         <tbody>
 
                         <tr>
-                            {% for shed in item.shed %}
-                            <td>{{ shed.sh }}</td>
+                            {% for record in groups[database] %}
+                            <td>{{ record.schema }}</td>
                             <td>
                                 <div class="row">
                                     <div class="form-group col-12">
                                         <label for="frequencySelect">Частота:</label>
-                                        <select class="form-control" id="frequencySelect"
-                                                name="frequency_{{ item.db }}_{{ shed.sh }}">
-                                            <option {% if shed.freq=="Никогда" %} selected {% endif %}
-                                                    value="never">Никогда
-                                            </option>
-                                            <option {% if shed.freq=="Раз в день
-                                            " %} selected {% endif %}
-                                            value="daily">Раз в день</option>
-                                            <option {% if shed.freq=="Раз в неделю
-                                            " %} selected {% endif %}
-                                            value="weekly">Раз в неделю</option>
+                                        <select class="form-control form-select" id="frequencySelect"
+                                                name="frequency_{{ record.database }}_{{ record.schema }}">
+                                            <option {% if record.freq=="never" %} selected {% endif %} value="never">never</option>
+                                            <option {% if record.freq=="daily" %} selected {% endif %} value="daily">daily</option>
+                                            <option {% if record.freq=="weekly" %} selected {% endif %} value="weekly">weekly</option>
                                         </select>
                                     </div>
                                 </div>
@@ -59,70 +52,8 @@
                 <button type="submit" class="btn btn-primary">Сохранить</button>
             </div>
         </form>
-
-        <form action="/data" method="post">
-            <div class="row gy-2">
-                <div>
-                    <div class="col-sm-10">
-                        <h5 class="text-center">Пароль от создаваемого архива</h5>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="" class="col-sm-2 col-form-label">пароль от архива</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password" required id="password"
-                                   value="{{passwords.password_archive}}">
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="col-sm-10">
-                        <h5 class="text-center">Ключ для доступа к яндекс облаку</h5>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="" class="col-sm-2 col-form-label">Ключ</label>
-                        <div class="col-sm-10">
-                            <input type="login" class="form-control" name="key" required id="key1"
-                                   value="{{passwords.key}}">
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="col-sm-10">
-                        <h5 class="text-center">База данных</h5>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="" class="col-sm-2 col-form-label">host</label>
-                        <div class="col-sm-10">
-                            <input type="login" class="form-control" name="login1" required id="login1"
-                                   value="{{passwords.host}}">
-                        </div>
-                        <label for="" class="col-sm-2 col-form-label">port</label>
-                        <div class="col-sm-10">
-                            <input type="login" class="form-control" name="login2" required id="login2"
-                                   value="{{passwords.port}}">
-                        </div>
-                        <label for="" class="col-sm-2 col-form-label">user</label>
-                        <div class="col-sm-10">
-                            <input type="login" class="form-control" name="login3" required id="login3"
-                                   value="{{passwords.login_user}}">
-                        </div>
-                        <label for="" class="col-sm-2 col-form-label">password</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" name="login4" required id="login4"
-                                   value="{{passwords.password_user}}">
-                        </div>
-                    </div>
-                </div>
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-warning">Сохранить</button>
-                </div>
-            </div>
-        </form>
     </div>
 
-
-    <!-- Подключаем библиотеку jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Подключаем библиотеку Popper.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 

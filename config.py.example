@@ -1,10 +1,12 @@
-S3_REGION = ''
+S3_REGION = 'ru-central1'
 S3_access_key_id = ''
 S3_secret_access_key = ''
 S3_bucket = ''
-conn_params = {
-    'host': 'localhost',
-    'port': '5432',
-    'user': 'your_username',
-    'password': 'your_password'
-}
+
+PG_HOST = 'localhost'
+PG_PASSWORD = ''
+PG_USER = 'postgres'
+PG_PORT = 5432
+DEBUG = False
+
+ZIP_PASSWORD = ""

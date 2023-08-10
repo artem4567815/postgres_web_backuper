@@ -4,3 +4,4 @@ venv
 backupdata.sqlite3
 migrations
 instance
+backups
