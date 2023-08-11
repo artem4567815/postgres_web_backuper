@@ -13,7 +13,6 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 db_string = "postgresql://{}:{}@{}:{}/{}".format(PG_USER, PG_PASSWORD, PG_HOST, PG_PORT, "backuper")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = db_string
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
