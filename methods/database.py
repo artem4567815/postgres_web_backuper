@@ -17,7 +17,6 @@ def get_schemas():
         print("Ошибка при работе с базой данных:", error)
         return []
 
-    result = []
 
     for database in databases:
         try:

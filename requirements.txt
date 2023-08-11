@@ -5,3 +5,5 @@ flask_sqlalchemy
 psycopg2-binary
 Flask-Migrate
 schedule
+flask_httpauth
+pyminizip

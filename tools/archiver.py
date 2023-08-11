@@ -1,4 +1,4 @@
-from os import system, remove
+from os import remove
 from pyminizip import compress
 
 

@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+from backuper_server import app
+from methods import *
+
+with app.app_context():
+    make_backup(modes=['daily', 'weekly'])

@@ -10,3 +10,6 @@ PG_PORT = 5432
 DEBUG = False
 
 ZIP_PASSWORD = ""
+
+TP_login = ''
+TP_password = ''

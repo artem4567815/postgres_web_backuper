@@ -1,13 +1,13 @@
-# -*- coding: utf-8 -*-
-from models import *
-from backuper_server import app
 from methods import *
-from tools import *
-from config import *
+import schedule as sch
+from backuper_server import app
+import time
 
-
-# sch.every(1).minute.do(data2)
-# while True:
-#     sch.run_pending()
 with app.app_context():
-    make_backup(modes=['daily', 'weekly'])
+    sch.every(1).day.at("03:00").do(lambda: make_backup(modes=['daily']))
+    sch.every(1).sunday.at("03:00").do(lambda: make_backup(modes=['weekly']))
+
+    while True:
+        sch.run_pending()
+        time.sleep(3600)
+

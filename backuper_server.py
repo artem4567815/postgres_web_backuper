@@ -1,7 +1,9 @@
-from models import *
 from flask import Flask, render_template, request, redirect
 from flask_migrate import Migrate
+from flask_httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash, check_password_hash
 from methods import *
+from config import TP_login, TP_password
 
 app = Flask(__name__)
 
@@ -12,8 +14,14 @@ db.init_app(app)
 
 migrate = Migrate(app, db)
 
+auth = HTTPBasicAuth()
+
+users = {
+    TP_login: generate_password_hash(TP_password)
+}
 
 @app.route('/', methods=['get'])
+@auth.login_required
 def index():
     targets = get_schemas()
     records = create_records(targets)
@@ -21,8 +29,8 @@ def index():
 
     return render_template('index.html', groups=groups)
 
-
 @app.route('/', methods=['post'])
+@auth.login_required
 def save():
     for database, schema in get_schemas():
         freq = request.form.get(f"frequency_{database}_{schema}")
@@ -33,6 +41,13 @@ def save():
     db.session.commit()
 
     return redirect("/")
+
+@auth.verify_password
+def verify_password(username, password):
+    if username in users and check_password_hash(users.get(username), password):
+        return "Sucsses"
+
+
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True, host="0.0.0.0")
