@@ -4,6 +4,7 @@ from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
 from methods import *
 from config import TP_login, TP_password
+import os
 
 app = Flask(__name__)
 
