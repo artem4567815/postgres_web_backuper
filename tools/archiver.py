@@ -31,5 +31,7 @@ class Archiver:
                 zipf.setpassword(ZIP_PASSWORD.encode('utf-8'))
                 zipf.write(filename, os.path.basename(filename))
 
-            os.remove(filename)
+            if os.path.dirname(filename) == backup_dir:
+                os.remove(filename)
+
             return outfile

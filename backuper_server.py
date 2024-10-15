@@ -98,7 +98,7 @@ def save_directories():
 @auth.verify_password
 def verify_password(username, password):
     if username in users and check_password_hash(users.get(username), password):
-        return "Sucsses"
+        return "Success"
 
 
 if __name__ == '__main__':

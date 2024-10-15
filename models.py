@@ -18,3 +18,9 @@ class Directory(db.Model):
     path = db.Column(db.String(50)) #путь
     mode = db.Column(db.String(50))
     delete_days = db.Column(db.Integer(), nullable=True)
+
+class Deleting(db.Model):
+    __tablename__ = 'deleting'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    backups_name = db.Column(db.String(50))
+    delete_days = db.Column(db.String(50))

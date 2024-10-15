@@ -1,4 +1,5 @@
 import boto3
+from Cryptodome.SelfTest.Cipher.test_CFB import file_name
 from botocore.exceptions import NoCredentialsError
 from datetime import datetime
 from botocore.config import Config
@@ -41,8 +42,8 @@ class S3Uploader:
             print("Uploading to ", self.__directory)
 
     def apply(self, file_name):
+        name = file_name.split('/')[-1]
         if not self.__debug:
-            name = file_name.split('/')[-1]
             try:
                 self.__s3.upload_file(file_name, self.__bucket, self.__directory + name, Callback=ProgressPercentage(file_name))
                 print(file_name, "uploaded")
@@ -56,3 +57,15 @@ class S3Uploader:
             print(file_name, "deleted!")
         except OSError as e:
             print("Error: %s : %s" % (file_name, e.strerror))
+
+        return self.__directory + name
+
+    def delete(self, filename):
+        try:
+            self.__s3.delete_object(Bucket=self.__bucket, Key=str(filename))
+            print(filename, "deleted")
+        except FileNotFoundError:
+            print("The file was not found")
+        except NoCredentialsError:
+            print("Credentials not available")
+

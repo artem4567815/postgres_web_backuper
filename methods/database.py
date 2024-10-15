@@ -1,7 +1,7 @@
 import psycopg2
 from config import *
 from models import *
-
+from datetime import datetime, timedelta
 
 def get_schemas():
     result = []
@@ -134,3 +134,21 @@ def get_directory_groups(records):
         directory_groups.append(directory_entry)
 
     return directory_groups
+
+
+def add_to_delete(filenames, freq_delete):
+    for object in filenames:
+        for date in freq_delete:
+            if date[0] in object:
+                day_of_delete = str(object).split("/")[0]
+                date_obj = datetime.strptime(day_of_delete, "%Y-%m-%d")
+                new_date = date_obj + timedelta(days=date[1])
+                new_date = str(new_date.strftime("%Y-%m-%d"))
+                record = Deleting.query.filter_by(backups_name=object, delete_days=new_date).first()
+                if not record:
+                    record = Deleting(backups_name=object, delete_days=new_date)
+                    try:
+                        db.session.add(record)
+                        db.session.commit()
+                    except Exception as e:
+                        print("error:", e)
